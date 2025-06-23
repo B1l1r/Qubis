@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useTranslation } from "../i18n"; // ✅ i18n hook eklendi
+import { useTranslation } from "../i18n"; 
 
 export default function CreateVMModal({ visible, onClose, onSuccess, darkMode }) {
-  const { t } = useTranslation(); // ✅ çeviri fonksiyonu
+  const { t } = useTranslation(); 
   const [formData, setFormData] = useState({
     name: "",
     ram: "",
