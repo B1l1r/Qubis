@@ -1,5 +1,5 @@
 import React from "react";
-import { useTranslation } from "../i18n"; // ✅ eklendi
+import { useTranslation } from "../i18n";
 
 export default function ContextMenu({
   x,
@@ -14,7 +14,7 @@ export default function ContextMenu({
   onClose,
   darkMode = false,
 }) {
-  const { t } = useTranslation(); // ✅ çeviri hook'u
+  const { t } = useTranslation(); 
 
   if (!vm || x === null || y === null) return null;
 
