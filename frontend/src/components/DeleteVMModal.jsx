@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useTranslation } from "../i18n"; // ✅ i18n hook
+import { useTranslation } from "../i18n"; 
 
 export default function DeleteVMModal({ visible, vmToDelete, onCancel, onConfirm, darkMode = false }) {
   const { t } = useTranslation();
