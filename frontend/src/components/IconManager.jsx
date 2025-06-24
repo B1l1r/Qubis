@@ -4,17 +4,10 @@ import windowsIcon from "../assets/windows-icon.png";
 import cloudIcon from "../assets/internet.png";
 import { useTranslation } from "../i18n";
 
-/**
- * Bu bileşen, harita üzerinde sabit iki önemli simgeyi gösterir:
- * - Windows (Host OS)
- * - İnternet (Cloud)
- * 
- * Simgeler draggable'dır ve `onDragStop` ile parent'a konum bildirir.
- */
 export default function IconManager({ hostPosition, internetPosition, onHostDrag, onInternetDrag }) {
   return (
     <>
-      {/* Windows Host OS Simgesi */}
+      {/* Windows Host OS Symbol */}
       <Draggable
         position={hostPosition}
         onStop={(e, data) => onHostDrag({ x: data.x, y: data.y })}
@@ -26,7 +19,7 @@ export default function IconManager({ hostPosition, internetPosition, onHostDrag
         </div>
       </Draggable>
 
-      {/* İnternet Bulut Simgesi */}
+      {/* İnternet Bulut Symbol */}
       <Draggable
         position={internetPosition}
         onStop={(e, data) => onInternetDrag({ x: data.x, y: data.y })}
