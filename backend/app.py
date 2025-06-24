@@ -39,7 +39,7 @@ def upsert_guac_connection(vm_name, port):
     )
     cur = conn.cursor()
 
-    # VM adına göre bağlantıyı kontrol et
+   
     cur.execute("SELECT connection_id, identifier FROM guacamole_connection WHERE connection_name = %s", (vm_name,))
     row = cur.fetchone()
 
@@ -138,7 +138,7 @@ def list_vms():
             state = get_vm_state(name)
             ip, ip_valid = get_vm_ip_safe(name) if state == "running" else (None, False)
 
-            # Sadece yeni VM'ler için port ata
+
             if name not in vm_port_map:
                 port = BASE_PORT
                 while port in used_ports or is_port_in_use(port):
@@ -164,7 +164,7 @@ def assign_vrde_port():
     if not vm_name:
         return jsonify({"error": "VM adı gerekli"}), 400
 
-    # Zaten atanmışsa aynı portu döndür
+
     if vm_name in vm_port_map:
         port = vm_port_map[vm_name]
     else:
@@ -174,11 +174,11 @@ def assign_vrde_port():
             port += 1
         vm_port_map[vm_name] = port
 
-    # VM çalışıyorsa durdur
+
     if get_vm_state(vm_name) == "running":
         run_command([VBOXMANAGE, "controlvm", vm_name, "poweroff"])
 
-    # VRDE ayarlarını güncelle ve yeniden başlat
+
     run_command([VBOXMANAGE, "modifyvm", vm_name, "--vrde", "on"])
     run_command([VBOXMANAGE, "modifyvm", vm_name, "--vrdeport", str(port)])
     run_command([VBOXMANAGE, "startvm", vm_name, "--type", "headless"])
@@ -337,12 +337,11 @@ def update_vm(vm_name):
     if not data:
         return jsonify({"error": "Veri alınamadı"}), 400
 
-    # ✳️ VM kapalı mı kontrol et
+
     state = get_vm_state(vm_name)
     if state != "poweroff":
         return jsonify({"error": f"{vm_name} şu anda çalışıyor veya kilitli. Lütfen kapatıp tekrar deneyin."}), 409
 
-    # RAM güncellemesi
     if data.get("ram"):
         try:
             ram_value = int(data["ram"])
@@ -350,7 +349,7 @@ def update_vm(vm_name):
         except ValueError:
             return jsonify({"error": "Geçersiz RAM değeri"}), 400
 
-    # CPU güncellemesi
+
     if data.get("cpu"):
         try:
             cpu_value = int(data["cpu"])
@@ -358,7 +357,7 @@ def update_vm(vm_name):
         except ValueError:
             return jsonify({"error": "Geçersiz CPU değeri"}), 400
 
-    # Ağ tipi güncellemesi
+
     if data.get("network"):
         net_mode = data["network"].lower().replace(" ", "")
         if net_mode in ["nat", "natnetwork", "bridged"]:
@@ -366,11 +365,11 @@ def update_vm(vm_name):
         else:
             return jsonify({"error": f"Geçersiz ağ tipi: {data['network']}"}), 400
 
-    # İsim güncellemesi
+
     if data.get("name") and data["name"] != vm_name:
         updates.append(["modifyvm", vm_name, "--name", data["name"]])
 
-    # Açıklama / tip güncellemesi
+
     if data.get("type"):
         updates.append(["modifyvm", vm_name, "--description", f"Type: {data['type']}"])
     if data.get("subtype"):
@@ -380,7 +379,7 @@ def update_vm(vm_name):
 
     if data.get("disk"):
         try:
-            int(data["disk"])  # sadece kontrol amaçlı
+            int(data["disk"]) 
         except ValueError:
             return jsonify({"error": "Geçersiz Disk değeri"}), 400
 
@@ -455,7 +454,7 @@ def get_guac_url():
         return jsonify({"error": "VM adı gerekli"}), 400
 
     try:
-        # 1. DB'den connection_id al
+
         conn = psycopg2.connect(
             dbname="guacamole_db",
             user="guacamole_user",
@@ -474,11 +473,11 @@ def get_guac_url():
 
         conn_id = row[0]
 
-        # 2. Doğru client_id encode et
+
         raw = f"{conn_id}\x00c\x00postgresql".encode("utf-8")
         encoded_id = base64.b64encode(raw).decode("utf-8")
 
-        # 3. Token al
+
         auth_res = requests.post("http://localhost:8080/guacamole/api/tokens", data={
             "username": "guacadmin",
             "password": "guacadmin"
@@ -491,7 +490,7 @@ def get_guac_url():
         if not token:
             return jsonify({"error": "Token boş"}), 500
 
-        # 4. Doğru bağlantı URL’si
+
         url = f"http://localhost:8080/guacamole/#/client/{encoded_id}?token={token}&username=guacadmin"
         return jsonify({"url": url})
 
