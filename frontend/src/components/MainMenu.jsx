@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useTranslation } from "../i18n"; // ✅ kendi custom hook'un
+import { useTranslation } from "../i18n"; 
 import trFlag from "../assets/tr-flag.png";
 import enFlag from "../assets/en-flag.jpg";
 
@@ -11,7 +11,7 @@ export default function MainMenu({
   isDeleteMode,
   darkMode,
 }) {
-  const { t, lang, setLang } = useTranslation(); // ✅ i18n yerine kendi hook'un
+  const { t, lang, setLang } = useTranslation(); 
 
   useEffect(() => {
     if (darkMode) {
@@ -31,7 +31,7 @@ export default function MainMenu({
         darkMode ? "bg-gray-900 text-white" : "bg-white text-black"
       }`}
     >
-      {/* ➕ VM Oluştur */}
+      {/* ➕ VM Create */}
       <button
         className="px-4 py-1 rounded hover:bg-gray-700 dark:hover:bg-gray-800 transition"
         onClick={onOpenCreate}
@@ -40,7 +40,7 @@ export default function MainMenu({
         ➕ <span className="ml-1">{t("ekle")}</span>
       </button>
 
-      {/* 🗑️ Silme Modu */}
+      {/* 🗑️ Remove Mode */}
       <button
         className={`px-4 py-1 rounded transition flex items-center space-x-1 ${
           isDeleteMode
@@ -59,7 +59,7 @@ export default function MainMenu({
         )}
       </button>
 
-      {/* 👁️ Görünüm (Dark/Light) */}
+      {/* 👁️ View (Dark/Light) */}
       <button
         className="px-4 py-1 hover:bg-gray-700 dark:hover:bg-gray-800 rounded transition"
         onClick={onToggleView}
@@ -69,7 +69,7 @@ export default function MainMenu({
       </button>
       
 
-      {/* ❓ Yardım */}
+      {/* ❓ Help */}
       <button
         className="ml-auto px-4 py-1 hover:bg-gray-700 dark:hover:bg-gray-800 rounded transition"
         onClick={onToggleHelp}
@@ -78,7 +78,7 @@ export default function MainMenu({
         ❓ <span className="ml-1">{t("yardım")}</span>
       </button>
       <div className="flex-grow" />
-      {/* 🌐 Dil Değiştirici */}
+      {/* 🌐 Change Language */}
       <button
         onClick={toggleLanguage}
         title="Change Language"
