@@ -1,135 +1,93 @@
 # Qubis — Interactive Virtual Machine Management Interface
 
-Qubis is a modern, React-based web application that offers a dynamic and intuitive interface for managing VirtualBox virtual machines. It provides real-time monitoring, network visualization, and lifecycle control, allowing developers and IT professionals to handle complex VM setups with ease.
+**Qubis** is a modern, React-based web application that offers an intuitive, real-time interface for managing VirtualBox virtual machines. It provides live network visualization, full VM lifecycle control, and **remote desktop access via Apache Guacamole** — ideal for developers, sysadmins, and IT professionals.
 
 ---
 
 ## 🚀 Features
 
-**Dynamic VM & Network Visualization**
-Graphically represents virtual machines, host, and internet with draggable nodes.
-Network types like NAT, Bridged, and NAT Network are visualized with animated SVG lines.
-Real-time VM states are reflected visually using color, opacity, and stroke changes.
+**🖥️ Visual VM & Network Mapping**  
+  • Draggable nodes for VMs, host, and internet  
+  • NAT, Bridged, and NAT Network types shown via animated SVG lines  
+  • Real-time VM/network status shown using colors, stroke styles, and opacity
 
-**Complete VM Lifecycle Management**
-Start, stop, delete, and snapshot VMs using right-click context menus.
-VM settings are editable via tabbed modal: General, Hardware, Network, and Info.
-Settings are fetched and updated asynchronously through a backend API.
+**⚙️ Full VM Lifecycle Control**  
+  • Start, stop, delete, snapshot VMs with right-click menus  
+  • Tabbed modals for editing general, hardware, and network settings  
+  • Asynchronous updates via REST API
 
-**Internationalization & Dark Mode**
-English and Turkish language support (i18n).
-Fully styled dark mode with seamless transitions.
+**🌐 RDP Access via Guacamole**  
+  • **Double-clicking a VM opens an RDP session in your browser**  
+  • No need for external RDP clients  
+  • Guacamole server manages sessions dynamically and securely
 
-**Real-Time Interaction & Auto Refresh**
-VM list and statuses refresh every 5 seconds.
-Double-click to connect to VM via browser (Guacamole).
-Escape key closes modals and context menus.
+**🌍 Multilingual & Dark Mode**  
+  • English and Turkish support via i18n  
+  • Seamless dark mode with full styling
 
-**Responsive & Styled Interface**
-Built with Tailwind CSS and React Hooks.
-Smooth animations, tooltips, and responsive layout.
-Draggable VM nodes styled with dark/light themes.
+**🔄 Real-Time & Interactive**  
+  • Auto-refresh VM/network data every 5 seconds  
+  • Escape key closes modals and menus  
+  • Hover tooltips and drag animations enhance usability
+
+**🎨 Responsive & Themed UI**  
+  • React + Tailwind CSS  
+  • Dark/light theme-aware draggable elements  
+  • Optimized for all screen sizes
 
 ---
 
 ## 🛠 Requirements
 
-Make sure to install the following software **in the exact order** shown below:
+Install the following **in this order**:
 
-### Required Software
+1. [**Oracle VirtualBox**](https://www.virtualbox.org/)  
+2. [**VirtualBox Extension Pack**](https://www.virtualbox.org/wiki/Downloads) — for USB & VRDE support  
+3. [**Docker Desktop** *(optional)*](https://www.docker.com/products/docker-desktop) — for backend containerization  
+4. [**Node.js v22.15.0 (x64)**](https://nodejs.org/en/download) — for frontend development
 
-1. **Oracle VirtualBox**
-   [https://www.virtualbox.org/](https://www.virtualbox.org/)
-
-2. **VirtualBox Extension Pack**
-   Enables USB support and VRDE connections.
-   [https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads)
-
-3. **Docker Desktop** *(Optional, if backend runs in Docker)*
-   [https://www.docker.com/products/docker-desktop/](https://www.docker.com/products/docker-desktop/)
-
-4. **Node.js v22.15.0 (x64)**
-   Required to build and run the frontend.
-   [https://nodejs.org/en/download](https://nodejs.org/en/download)
-
-> ⚠️ **Installation Wizard Order**
-> Run installers in the following order as shown in the setup image:
->
-> * `setup virtualbox`
-> * `setup docker`
-> * `run node.msi`
+> 📌 **Installation Wizard Order (as shown in setup image):**  
+> `setup virtualbox` → `setup docker` → `run node.msi`
 
 ---
 
-## 📦 Project Setup (Frontend)
+## 📦 Frontend Setup
 
-```bash
-# Navigate to the frontend directory
+```
 cd ../frontend
 
-# Install project dependencies
 npm install react-scripts --save
 npm install react-i18next --save
 npm install --package-lock-only
 npm install --force
 ```
+⚙️ VBoxManage Path (Windows)
+Ensure the following path is in your system PATH:
 
----
-
-## ⚙️ Environment Configuration
-
-### VirtualBox SDK & VBoxManage Path
-
-Ensure that VirtualBox's CLI tool is available globally:
-
-**Add to PATH**:
-
-```
-C:\Program Files\Oracle\VirtualBox\VBoxManage.exe
-```
-
+```C:\Program Files\Oracle\VirtualBox\VBoxManage.exe```
 Steps:
+• Win + S → “Environment Variables”
+• Edit Path under System Variables
+• Add the path if missing
 
-* Open Environment Variables (Win + S > "Environment Variables")
-* Edit the system `Path` variable
-* Add the above path if missing
+🌐 Backend API Endpoints
+Qubis uses a backend server at http://localhost:5000 with:
+```
+GET /api/vms — List all VMs
+POST /api/vm/:name/start|stop|snapshot|delete — Control VM lifecycle
+GET /api/vm/:name/details — VM settings
+POST /api/vm/:name/update — Save updates
+POST /api/guac-port, /connect, /guac-url — Guacamole for RDP access
+```
+**🙋 Why Qubis?**
+   • Visual clarity: Network and VM topology at a glance
+   • Hands-on control: Right-click menus, drag/drop, double-click for RDP
+   • Config in-browser: Edit RAM, CPU, name, network live
+   • Remote access: Use Guacamole to connect over RDP — no external apps
+   • Always in sync: Auto-updates with no manual refresh needed
 
----
+📸 Screenshots
 
-## 🌐 Backend API Endpoints
 
-Qubis requires a backend server on `http://localhost:5000` providing the following endpoints:
-
-* `GET /api/vms` — Fetch VM list
-* `POST /api/vm/:name/start|stop|snapshot|delete` — VM lifecycle operations
-* `GET /api/vm/:name/details` — Get VM detailed settings
-* `POST /api/vm/:name/update` — Save VM configuration
-* `POST /api/guac-port`, `/connect`, `/guac-url` — For Guacamole integration
-
----
-
-## 🙋 Why Qubis?
-
-* **Visual clarity:** Monitor network and VM status at a glance
-* **User-friendly interaction:** Drag, drop, right-click, double-click — intuitive controls
-* **Detailed config:** Modify VM RAM, CPU, name, and more without leaving the browser
-* **Real-time sync:** Automatically keeps state up-to-date without reloads
-
----
-
-## 📸 Screenshots
-
-*(Add your screenshots here for best effect)*
-
----
-
-## 📄 License
-
+📄 License
 MIT License
-
----
-
-## 👨‍💻 Authors
-
-* [Your Name](https://github.com/your-username)
-* Contributors welcome!
