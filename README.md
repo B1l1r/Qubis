@@ -1,6 +1,6 @@
 # Qubis — Interactive Virtual Machine Management Interface
 
-**Qubis** is a modern, React-based web application that offers an intuitive, real-time interface for managing VirtualBox virtual machines. It provides live network visualization, full VM lifecycle control, and **remote desktop access via Apache Guacamole** — ideal for developers, sysadmins, and IT professionals.
+**Qubis** is a modern, React-based web application that offers an intuitive, real-time interface for managing VirtualBox virtual machines. It provides live network visualization, complete VM lifecycle control, and remote desktop access via Apache Guacamole, allowing users to fully interact with VM desktops directly from the browser through secure RDP sessions — making it ideal for developers, sysadmins, and IT professionals.
 
 ---
 
