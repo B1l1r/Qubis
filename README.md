@@ -87,6 +87,19 @@ POST /api/guac-port, /connect, /guac-url — Guacamole for RDP access
    • Always in sync: Auto-updates with no manual refresh needed
 
 📸 Screenshots
+## 📸 Screenshots
+
+<img src="https://github.com/user-attachments/assets/b8126da7-9b18-4364-9e24-580fdef7adc0" width="700"/>
+
+<img src="https://github.com/user-attachments/assets/c6d22505-4459-47a4-8eba-a6fc2f8ecbe7" width="700"/>
+
+<img src="https://github.com/user-attachments/assets/c38b3b32-d452-4f91-86eb-ba37792cb37d" width="700"/>
+
+<img src="https://github.com/user-attachments/assets/10ac88cf-6166-4f87-8a33-902f6551bc1f" width="700"/>
+
+<img src="https://github.com/user-attachments/assets/e772f755-3b78-49ac-ac9c-0457ac8f4d56" width="700"/>
+
+<img src="https://github.com/user-attachments/assets/527e2fba-ad2f-44e8-8091-b7506756e532" width="700"/>
 
 
 📄 License
